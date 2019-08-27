@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200' );
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3061' );
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -64,32 +64,32 @@ app.get('/saveInfo/',(req,res)=>{
 });
 
 // ////define retrievel API
-// app.get('/retrieveInfo',(req,res)=>{
-//     var retrieve = formSchema.find((error,data)=>{
-//         if (error){
-//             throw error;
-//         }else{
-//             res.send(data);
-//         }
+app.get('/retrieveInfo',(req,res)=>{
+    var retrieve = formSchema.find((error,data)=>{
+        if (error){
+            throw error;
+        }else{
+            res.send(data);
+        }
         
-//     });
-// });
+    });
+});
 
-// ///get link to the retrievel API
-// const retrieveDataApi = "http://localhost:3052/retrieveInfo"
-// //const retrieveDataApi = "https://persondb-jossin.herokuapp.com/retrieveInfo"
+///get link to the retrievel API
+//const retrieveDataApi = "http://localhost:3052/retrieveInfo"
+const retrieveDataApi = "https://customapi-jossin.herokuapp.com/retrieveInfo"
 
-// ///call the API in a function to retieve the data
-// app.get('/viewpersons',(req,res)=>{
-//     request(retrieveDataApi,(error, response, body)=>{
-//         if (error){
-//             throw error;
-//         }else{
-//             var data= JSON.parse(body);
-//             res.send(data);
-//         }
-//     });
-// });
+///call the API in a function to retieve the data
+app.get('/viewpersons',(req,res)=>{
+    request(retrieveDataApi,(error, response, body)=>{
+        if (error){
+            throw error;
+        }else{
+            var data= JSON.parse(body);
+            res.send(data);
+        }
+    });
+});
 // /////////////////////////////////////////////////////
 // //define the API to get a singleperson
 
