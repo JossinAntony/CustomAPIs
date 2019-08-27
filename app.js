@@ -28,25 +28,29 @@ app.use(function (req, res, next) {
     next();
 });
 
-Mongoose.connect('mongodb://localhost:27017/PersonDB');
+Mongoose.connect('mongodb://localhost:27017/CustomDB');
 //Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority'); //mongodb cloudatlas add, remener to change password
 
 ////////////////////////////////////////////////
-//define dataschema
+//define dataschema fro sign-up data in S:\CausalityBiomodels\ABCD\ICT\HW\HW26082019_1_LogInForm\ProjectLogIn
 const formSchema = Mongoose.model('formdetails',
 {
-    uname:String,
-    umail:String,
-    umob:String,
-    umsg:String
+    sname:String,
+    saddr:String,
+    sgender:String,
+    sdstrct:String,
+    sbday:String,
+    smob:String,
+    smail:String,
+    spass:String,
+    scpass:String
 }
 );
 
 //define save API upon save button
 app.get('/saveInfo/',(req,res)=>{
-    console.log(req.query.uname);
     //var details = req.body;
-    var person = new formSchema({'uname':req.query.uname, 'umob':req.query.umob, 'umsg':req.query.umsg, 'umail':req.query.umail});
+    var person = new formSchema({'sname':req.query.sname, 'saddr':req.query.saddr, 'sgender':req.query.sgender, 'sdstrct':req.query.sdstrct, 'sbday':req.query.sbday, 'smob':req.query.smob, 'smail':req.query.smail, 'spass':req.query.spass, 'scpass':req.query.scpass});
     var result = person.save((error, data)=>{
         if (error){
             throw error;
