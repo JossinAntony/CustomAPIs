@@ -167,6 +167,32 @@ app.get('/viewStudents',(req,res)=>{
         }
     })
 })
+// update student
+app.post('/updateStudent',(req,res)=>{
+    var student = req.body;
+    var id = req.body._id;
+    studentSchema.update({_id:id},{$set:{uname:student.uname,
+        uroll:student.uroll,
+        uadmn:student.uadmn,
+        udob:student.udob,
+        umail:student.umail,
+        ubrnch:student.ubrnch,
+        ucolg:student.ucolg
+    }},(error,data)=>{
+        if(error){
+            throw error;
+            res.send (error);
+        }else{
+            res.send('<script>alert("Entry updated!")</script>');
+            console.log(data);
+        }
+    });
+    });
+
+
+
+
+
 
 app.get('/',(req,res)=>{
     res.render('index');
@@ -182,4 +208,4 @@ app.get('/index',(req,res)=>{
 
 app.listen(process.env.PORT || 3052,()=>{
     console.log("Server running at http://localhost:3052")
-});
+})
