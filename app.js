@@ -133,6 +133,7 @@ app.get('/viewpersons',(req,res)=>{
 // });
 ///////////////////////////////////
 //APIs for Student Schema
+//insert student into databse
 app.post('/insertStudent',(req,res)=>{
     var student = new studentSchema(req.body);
     student.save((error,data)=>{
@@ -144,7 +145,7 @@ app.post('/insertStudent',(req,res)=>{
         }
     })
 })
-
+//retrieve a single student from databse using admn no.
 app.post('/retrieveStudentByAdmn',(req,res)=>{
     var admn = req.body.sadmn;
     studentSchema.find({uadmn:admn},(error,data)=>{
@@ -156,7 +157,16 @@ app.post('/retrieveStudentByAdmn',(req,res)=>{
         }
     })
 })
-
+//view all student records in database
+app.get('/viewStudents',(req,res)=>{
+    studentSchema.find((error,data)=>{
+        if(error){
+            throw error;
+        }else{
+            res.send(data);
+        }
+    })
+})
 
 app.get('/',(req,res)=>{
     res.render('index');
