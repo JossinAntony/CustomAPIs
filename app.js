@@ -189,7 +189,17 @@ app.post('/updateStudent',(req,res)=>{
     });
     });
 
-
+//deleteAPI
+app.post('/deleteStudent',(req,res)=>{
+    var id = req.body._id;
+    studentSchema.remove({_id:id}, (error, data)=>{
+        if(error){
+            throw error;
+        }else{
+            res.send(data);
+        }
+})
+})
 
 
 
