@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3061' );
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200' );
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -29,8 +29,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-//Mongoose.connect('mongodb://localhost:27017/CustomDB');
-Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority'); //mongodb cloudatlas add, remener to change password
+Mongoose.connect('mongodb://localhost:27017/CustomDB');
+//Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority'); //mongodb cloudatlas add, remener to change password
 
 ////////////////////////////////////////////////
 //define dataschema fro sign-up data in S:\CausalityBiomodels\ABCD\ICT\HW\HW26082019_1_LogInForm\ProjectLogIn
@@ -47,6 +47,17 @@ const formSchema = Mongoose.model('formdetails',
     scpass:String
 }
 );
+
+const studentSchema = Mongoose.model('studentdetails',{
+    uname:String,
+    uroll:String,
+    uadmn:String,
+    udob:String,
+    umail:String,
+    ubrnch:String,
+    ucolg:String
+})
+
 
 //define save API upon save button
 app.get('/saveInfo/',(req,res)=>{
@@ -120,6 +131,31 @@ app.get('/viewpersons',(req,res)=>{
 //         } 
 //     });
 // });
+///////////////////////////////////
+//APIs for Student Schema
+app.post('/insertStudent',(req,res)=>{
+    var student = new studentSchema(req.body);
+    student.save((error,data)=>{
+        if(error){
+            throw error;
+        }else {
+            //console.log(data);
+            res.send(data);
+        }
+    })
+})
+
+app.post('/retrieveStudentByAdmn',(req,res)=>{
+    var admn = req.body.sadmn;
+    studentSchema.find({uadmn:admn},(error,data)=>{
+        if(error){
+            throw error;
+        }else {
+            //console.log(data);
+            res.send(data);
+        }
+    })
+})
 
 
 app.get('/',(req,res)=>{
