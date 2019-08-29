@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200' );
+    //res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200' );
+    res.setHeader('Access-Control-Allow-Origin', '"http://studentdb1-jossin.herokuapp.com"' );
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -29,8 +30,8 @@ app.use(function (req, res, next) {
     next();
 });
 
-Mongoose.connect('mongodb://localhost:27017/CustomDB');
-//Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority'); //mongodb cloudatlas add, remener to change password
+//Mongoose.connect('mongodb://localhost:27017/CustomDB');
+Mongoose.connect('mongodb+srv://jossin:jossin@cluster0-arjkd.mongodb.net/test?retryWrites=true&w=majority'); //mongodb cloudatlas add, remener to change password
 
 ////////////////////////////////////////////////
 //define dataschema fro sign-up data in S:\CausalityBiomodels\ABCD\ICT\HW\HW26082019_1_LogInForm\ProjectLogIn
@@ -145,6 +146,9 @@ app.post('/insertStudent',(req,res)=>{
         }
     })
 })
+
+
+
 //retrieve a single student from databse using admn no.
 app.post('/retrieveStudentByAdmn',(req,res)=>{
     var admn = req.body.sadmn;
